@@ -37,46 +37,51 @@ public class RecipeManager : MonoBehaviour
             allRecipeSlots.Add(recipe.midRow);
             allRecipeSlots.Add(recipe.bottomRow);
 
+            //Looks at each crafting row
             for (int i = 0; i < 3; i++)
             {
                 for (int n = 0; n < allRecipeSlots[i].Length; n++)
                 {
+                    //See if item in row - slot isnt null
                     if (allRecipeSlots[i][n] != null)
                     {
+                        //See if item in same crafting table slot isnt null
                         if (allSlots[i][n].currItem != null)
                         {
+                            //See if both items arent the same
                             if (allRecipeSlots[i][n].itemName != allSlots[i][n].currItem.itemName)
                             {
                                 correctPlacement = false;
-                                continue;
+                                //continue;
                             }
                         }
                         else
                         {
                             correctPlacement = false;
-                            continue;
+                            //continue;
                         }
                     }
                     else
                     {
-                        if(allSlots[i][n].currItem != null)
+                        if (allSlots[i][n].currItem != null)
                         {
                             correctPlacement = false;
                             continue;
                         }
                     }
                 }
+            }
 
-                if(correctPlacement)
-                {
-                    outputSlot.currItem = recipe.output;
-                    outputSlot.UpdateSlotData();
-                }
-                else
-                {
-                    outputSlot.currItem = null;
-                    outputSlot.UpdateSlotData();
-                }
+            if (correctPlacement)
+            {
+                outputSlot.currItem = recipe.output;
+                outputSlot.UpdateSlotData();
+                break;
+            }
+            else
+            {
+                outputSlot.currItem = null;
+                outputSlot.UpdateSlotData();
             }
         }
     }
